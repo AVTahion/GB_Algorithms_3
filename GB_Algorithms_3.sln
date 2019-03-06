@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GB_Algorithms_3", "GB_Algorithms_3\GB_Algorithms_3.csproj", "{04890B8D-1E57-4302-80F7-436D72B6E751}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_1", "GB_Algorithms_3\Task_1.csproj", "{04890B8D-1E57-4302-80F7-436D72B6E751}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

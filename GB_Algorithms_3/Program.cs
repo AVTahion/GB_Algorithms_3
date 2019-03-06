@@ -45,7 +45,7 @@ namespace GB_Algorithms_3
         }
 
         /// <summary>
-        /// Метод оптимизированной пузырьковой сортировки массива со счетчиком операций (перемещение маркера + перестановка эл. массива)
+        /// Метод оптимизированной(распознает отсортированный массив) пузырьковой сортировки массива со счетчиком операций (перемещение маркера + перестановка эл. массива)
         /// </summary>
         /// <param name="inArray"></param>
         /// <returns></returns>
@@ -74,6 +74,79 @@ namespace GB_Algorithms_3
             return counter;
         }
 
+        /// <summary>
+        /// Метод оптимизированной пузырьковой сортировки(распознает отсортированный массив, не проверяет уже отсортированные эл.) массива со счетчиком операций (перемещение маркера + перестановка эл. массива)
+        /// </summary>
+        /// <param name="inArray"></param>
+        /// <returns></returns>
+        static int BubbleSortOptimized2(ref int[] inArray)
+        {
+            int buf = 0;
+            int counter = 0;
+            bool done = false;
+            int x = inArray.Length-1;
+            for (int i = 0; i < inArray.Length; i++)
+            {
+                if (done) break;
+                done = true;
+                for (int j = 0; j < x; j++)
+                {
+                    counter++;
+                    if (inArray[j] > inArray[j + 1])
+                    {
+                        counter++;
+                        buf = inArray[j];
+                        inArray[j] = inArray[j + 1];
+                        inArray[j + 1] = buf;
+                        done = false;
+                    }
+                }
+                x--;
+            }
+            return counter;
+        }
+
+        /// <summary>
+        /// Метод шейкерной сортировки
+        /// </summary>
+        /// <param name="inArray"></param>
+        /// <returns></returns>
+        static int ShakerSort(ref int[] inArray)
+        {
+            int buf = 0;
+            int counter = 0;
+            int rightMarker = inArray.Length - 1;
+            int leftMarker = 0;
+            while (leftMarker <= rightMarker)
+            {
+                for (int j = leftMarker; j < rightMarker; j++)
+                {
+                    counter++;
+                    if (inArray[j] > inArray[j + 1])
+                    {
+                        counter++;
+                        buf = inArray[j];
+                        inArray[j] = inArray[j + 1];
+                        inArray[j + 1] = buf;
+                    }
+                }
+                for (int k = rightMarker; k > leftMarker; k--)
+                {
+                    counter++;
+                    if (inArray[k] < inArray[k - 1])
+                    {
+                        counter++;
+                        buf = inArray[k];
+                        inArray[k] = inArray[k - 1];
+                        inArray[k - 1] = buf;
+                    }
+                }
+                leftMarker++;
+                rightMarker--;
+            }
+            return counter;
+        }
+
 
         /// <summary>
         /// Выводит массив в консоль
@@ -96,7 +169,7 @@ namespace GB_Algorithms_3
             {
                 referenceArray[i] = rnd.Next(0, 60);
             }
-            Console.Write($"{"Эталонный массив: ", -35}");
+            Console.Write($"{"Сортируемый массив: ", -35}");
             PrintArray(referenceArray);
             Console.WriteLine();
 
@@ -115,6 +188,19 @@ namespace GB_Algorithms_3
             Console.WriteLine();
             Console.WriteLine($"Кол-во операций: {numberOfOperations}");
 
+            Array.Copy(referenceArray, testArray, lenght);
+            numberOfOperations = BubbleSortOptimized2(ref testArray);
+            Console.Write($"{"Оптим. пузырьковая сортировка v2: ",-35}");
+            PrintArray(testArray);
+            Console.WriteLine();
+            Console.WriteLine($"Кол-во операций: {numberOfOperations}");
+
+            Array.Copy(referenceArray, testArray, lenght);
+            numberOfOperations = ShakerSort(ref testArray);
+            Console.Write($"{"Шейкерная сортировка: ",-35}");
+            PrintArray(testArray);
+            Console.WriteLine();
+            Console.WriteLine($"Кол-во операций: {numberOfOperations}");
 
             Console.ReadKey();
         }

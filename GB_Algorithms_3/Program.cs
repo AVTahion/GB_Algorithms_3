@@ -147,6 +147,38 @@ namespace GB_Algorithms_3
             return counter;
         }
 
+        /// <summary>
+        /// Метод осуществляет бинарный поиск в отсортированном массиве(не гарантирует нахождение первого вхождения искомого)
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        static int BinSearch(int[] arr, int pattern)
+        {
+            int res = -1;
+            int LMarker = 0;
+            int RMarker = arr.Length - 1;
+            int mid = LMarker + (RMarker - LMarker) / 2;
+            while (LMarker < RMarker)
+            {
+                if (arr[mid] == pattern)
+                {
+                    res = mid;
+                    break;
+                }
+                if (arr[mid] > pattern)
+                {
+                    RMarker = mid;
+                    mid = LMarker + (RMarker - LMarker) / 2;
+                }
+                else
+                {
+                    LMarker = mid;
+                    mid = LMarker + (RMarker - LMarker + 1) / 2;
+                }
+            }
+            return res;
+        }
 
         /// <summary>
         /// Выводит массив в консоль
@@ -202,6 +234,11 @@ namespace GB_Algorithms_3
             Console.WriteLine();
             Console.WriteLine($"Кол-во операций: {numberOfOperations}");
 
+            Console.ReadKey();
+
+            Console.WriteLine("Введите значение для поиска:");
+            int res = BinSearch(testArray, Convert.ToInt32(Console.ReadLine()));
+            Console.WriteLine(res);
             Console.ReadKey();
         }
     }
